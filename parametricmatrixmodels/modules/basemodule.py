@@ -11,6 +11,7 @@ import inspect
 import warnings
 from abc import ABC, abstractmethod
 
+import copy
 import jax
 import jax.numpy as np
 from beartype import beartype
@@ -922,11 +923,7 @@ class BaseModule(ABC):
         -------
             A deep copy of the module.
         """
-        # serialize and deserialize to create a deep copy
-        data = self.serialize()
-        new_module = self.__class__()
-        new_module.deserialize(data)
-        return new_module
+        return copy.deepcopy(self)
 
     def freeze(self) -> "BaseModule":
         """
