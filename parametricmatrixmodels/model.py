@@ -1818,7 +1818,7 @@ class Model(BaseModule):
             data["optimizer_state"] = data["optimizer_state"].tolist()
         if isinstance(data["optimizer_struct"], (onp.ndarray, np.ndarray)):
             data["optimizer_struct"] = data["optimizer_struct"].item()
-        if isinstance(data["model_name"], (onp.ndarray, np.ndarray)):
+        if isinstance(data.get("model_name", None), (onp.ndarray, np.ndarray)):
             data["model_name"] = data["model_name"].item()
 
         # deserialize the model
