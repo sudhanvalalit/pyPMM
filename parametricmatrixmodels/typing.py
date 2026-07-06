@@ -4,7 +4,13 @@ from sys import version_info
 from typing import Any, TypeAlias
 
 import numpy as onp
-from jax._src.prng import PRNGKeyArray
+
+try:
+    # JAX 0.10.2 and later
+    from jax._src.random.prng import PRNGKeyArray
+except ImportError:
+    from jax._src.prng import PRNGKeyArray
+
 from jaxtyping import (
     Array,
     Complex,
