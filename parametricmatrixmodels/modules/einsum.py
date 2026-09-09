@@ -246,9 +246,13 @@ class Einsum(BaseModule):
             param_shapes_list = (
                 [self.params.shape]
                 if isinstance(self.params, np.ndarray)
-                else jax.tree.leaves(
-                    self.params, is_leaf=lambda x: isinstance(x, np.ndarray)
-                )
+                else [
+                    p.shape
+                    for p in jax.tree.leaves(
+                        self.params,
+                        is_leaf=lambda x: isinstance(x, np.ndarray),
+                    )
+                ]
             )
             if len(leading_strs) != len(param_shapes_list):
                 raise ValueError(
